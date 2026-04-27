@@ -1,0 +1,430 @@
+<div class="min-h-screen bg-gray-100 p-6">
+
+    <div class="min-h-screen bg-gray-100 p-6">
+
+        @if (step === 'form') {
+        <div class="min-h-screen bg-gray-100 p-6">
+            <!-- FORM SCREEN -->
+            <div class="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+
+                <form [formGroup]="form"
+                    class="w-full max-w-5xl bg-white rounded-xl border border-gray-200 shadow-sm p-8 space-y-8">
+
+                    <!-- TITLE -->
+                    <div>
+                        <h1 class="text-2xl font-semibold text-gray-900 flex items-center gap-3">
+
+                            <span class="p-2 bg-blue-100 text-blue-600 rounded-full">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path d="M9 12l2 2 4-4M12 2a10 10 0 100 20 10 10 0 000-20z" />
+                                </svg>
+                            </span>
+
+                            Patient Triage Form
+                        </h1>
+
+                        <p class="text-sm text-gray-500 mt-1">
+                            Enter patient details for medical analysis
+                        </p>
+                    </div>
+
+                    <!-- PERSONAL INFORMATION -->
+                    <div class="space-y-4">
+
+                        <h2 class="text-base font-semibold text-gray-700 border-b pb-2 flex items-center gap-3">
+
+                            <span class="p-1.5 bg-purple-100 text-purple-600 rounded-full">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path d="M5 20h14M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                                </svg>
+                            </span>
+
+                            Personal Information
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                            <!-- NAME -->
+                            <div>
+                                <label class="text-sm text-gray-600 flex items-center gap-2">
+                                    <span class="p-1 bg-blue-100 text-blue-600 rounded-full">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 12c2.5 0 4-2 4-4s-1.5-4-4-4-4 2-4 4 1.5 4 4 4zM6 20c0-3 3-6 6-6s6 3 6 6" />
+                                        </svg>
+                                    </span>
+                                    Full Name
+                                </label>
+
+                                <input formControlName="name" class="form-control mt-1"
+                                    [ngClass]="{'border-red-500 ring-2 ring-red-200': f?.name?.touched && f?.name?.invalid}"
+                                    placeholder="Enter patient name" />
+
+                                <p *ngIf="f?.name?.touched && f?.name?.errors?.['required']"
+                                    class="text-red-500 text-sm mt-1">
+                                    Name is required
+                                </p>
+
+                                <p *ngIf="f?.name?.touched && f?.name?.errors?.['minlength']"
+                                    class="text-red-500 text-sm mt-1">
+                                    Minimum 2 characters required
+                                </p>
+                            </div>
+
+                            <!-- AGE -->
+                            <div>
+                                <label class="text-sm text-gray-600 flex items-center gap-2">
+                                    <span class="p-1 bg-green-100 text-green-600 rounded-full">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24">
+                                            <path d="M12 2v20M6 12h12" />
+                                        </svg>
+                                    </span>
+                                    Age
+                                </label>
+
+                                <input type="number" formControlName="age" class="form-control mt-1"
+                                    [ngClass]="{'border-red-500 ring-2 ring-red-200': f?.age?.touched && f?.age?.invalid}"
+                                    placeholder="Enter age" />
+
+                                <p *ngIf="f?.age?.touched && f?.age?.errors?.['required']"
+                                    class="text-red-500 text-sm mt-1">
+                                    Age is required
+                                </p>
+
+                                <p *ngIf="f?.age?.touched && (f?.age?.errors?.['min'] || f?.age?.errors?.['max'])"
+                                    class="text-red-500 text-sm mt-1">
+                                    Age must be between 1 and 120
+                                </p>
+                            </div>
+
+                            <!-- GENDER -->
+                            <div>
+                                <label class="text-sm text-gray-600 flex items-center gap-2">
+                                    <span class="p-1 bg-pink-100 text-pink-600 rounded-full">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 21C8 17 4 13.5 4 9.5A4.5 4.5 0 0112 6a4.5 4.5 0 018 3.5C20 13.5 16 17 12 21z" />
+                                        </svg>
+                                    </span>
+                                    Gender
+                                </label>
+
+                                <select formControlName="gender" class="form-control mt-1" placeholder="Select gender"
+                                    [ngClass]="{'border-red-500 ring-2 ring-red-200': f?.gender?.touched && f?.gender?.invalid}">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="others">Others</option>
+                                </select>
+
+                                <p *ngIf="f?.gender?.touched && f?.gender?.invalid" class="text-red-500 text-sm mt-1">
+                                    Gender is required
+                                </p>
+                            </div>
+
+                            <!-- CONTACT -->
+                            <div>
+                                <label class="text-sm text-gray-600 flex items-center gap-2">
+                                    <span class="p-1 bg-yellow-100 text-yellow-600 rounded-full">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24">
+                                            <path d="M3 5h18M8 12h8M5 19h14" />
+                                        </svg>
+                                    </span>
+                                    Contact
+                                </label>
+
+                                <input formControlName="contact" class="form-control mt-1" placeholder="Phone number"
+                                    [ngClass]="{'border-red-500 ring-2 ring-red-200': f?.contact?.touched && f?.contact?.invalid}" />
+
+                                <p *ngIf="f?.contact?.touched && f?.contact?.invalid" class="text-red-500 text-sm mt-1">
+                                    Contact is required
+                                </p>
+                            </div>
+
+                            <!-- ADDRESS -->
+                            <div class="md:col-span-2">
+                                <label class="text-sm text-gray-600 flex items-center gap-2">
+                                    <span class="p-1 bg-indigo-100 text-indigo-600 rounded-full">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24">
+                                            <path d="M4 6h16M4 12h16M4 18h10" />
+                                        </svg>
+                                    </span>
+                                    Address
+                                </label>
+
+                                <input formControlName="address" class="form-control mt-1" placeholder="Full address"
+                                    [ngClass]="{'border-red-500 ring-2 ring-red-200': f?.address?.touched && f?.address?.invalid}" />
+                                <p *ngIf="f?.address?.touched && f?.address?.invalid" class="text-red-500 text-sm mt-1">
+                                    Address is required
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- MEDICAL INFORMATION -->
+                    <div class="space-y-4">
+
+                        <h2 class="text-base font-semibold text-gray-700 border-b pb-2 flex items-center gap-3">
+
+                            <span class="p-2 bg-red-100 text-red-600 rounded-full">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path d="M12 2s6 7 6 11a6 6 0 11-12 0c0-4 6-11 6-11z" />
+                                </svg>
+                            </span>
+
+                            Medical Information
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                            <!-- BLOOD GROUP -->
+                            <div>
+                                <label class="text-sm text-gray-600">Blood Group</label>
+
+                                <ng-select [items]="bloodGroupOptions" bindLabel="label" bindValue="value"
+                                    formControlName="bloodGroup" placeholder="Select blood group"
+                                    class="formal-ng-select mt-1"
+                                    [ngClass]="{'border-red-500 ring-2 ring-red-200': f?.bloodGroup?.touched && f?.bloodGroup?.invalid}">
+                                </ng-select>
+
+                                <p *ngIf="f?.bloodGroup?.touched && f?.bloodGroup?.invalid"
+                                    class="text-red-500 text-sm mt-1">
+                                    Blood group is required
+                                </p>
+                            </div>
+
+                            <!-- SYMPTOMS -->
+                            <div>
+                                <label class="text-sm text-gray-600">Symptoms</label>
+
+                                <ng-select [items]="symptomOptions" bindLabel="label" bindValue="value"
+                                    [multiple]="true" [searchable]="true" [clearable]="true" [closeOnSelect]="false"
+                                    formControlName="symptoms" placeholder="Search symptoms"
+                                    class="formal-ng-select mt-1"
+                                    [ngClass]="{'border-red-500 ring-2 ring-red-200': f?.symptoms?.touched && f?.symptoms?.invalid}">
+                                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear"> @for (item of
+                                        items.slice(0, 2); track item) { <div class="ng-value"> <span
+                                                class="ng-value-label">{{ item.label }}</span> <span
+                                                class="ng-value-icon right" (click)="clear(item)">×</span> </div> } @if
+                                        (items.length > 2) { <div class="ng-value"> <span class="ng-value-label">+{{
+                                                items.length - 2 }} more</span> </div> } </ng-template>
+                                </ng-select>
+
+                                <p *ngIf="f?.symptoms?.touched && f?.symptoms?.invalid"
+                                    class="text-red-500 text-sm mt-1">
+                                    Please select at least one symptom
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- BUTTON -->
+                    <div class="pt-4">
+                        <button (click)="analyze()" [disabled]="form?.invalid || isLoading"
+                            class="w-full h-12 bg-gray-900 text-white rounded-lg hover:bg-black transition flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+
+                            <svg *ngIf="isLoading" class="animate-spin w-5 h-5" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                            </svg>
+
+                            <span>{{ isLoading ? 'Analyzing...' : 'Analyze Patient' }}</span>
+
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- RESULTS TABLE -->
+            <div class="mt-10 bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">
+                    Submitted Patient Records
+                </h2>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm text-left border-collapse">
+
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-700">
+                                <th class="p-3 border">Name</th>
+                                <th class="p-3 border">Age</th>
+                                <th class="p-3 border">Gender</th>
+                                <th class="p-3 border">Contact</th>
+                                <th class="p-3 border">Blood Group</th>
+                                <th class="p-3 border">Symptoms</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <!-- LOADER -->
+                            @if (isTableLoading) {
+                            <tr>
+                                <td colspan="6" class="p-6 text-center">
+                                    <div class="flex items-center justify-center gap-2 text-gray-600">
+                                        <svg class="animate-spin h-5 w-5 text-gray-500" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z">
+                                            </path>
+                                        </svg>
+                                        Loading patient records...
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+
+                            <!-- DATA -->
+                            @else if (analysisList?.length) {
+                            @for (p of analysisList; track p.id) {
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 border"><a (click)="goToResult(p?.analysis)">{{ p.name }}</a></td>
+                                <td class="p-3 border">{{ p.age }}</td>
+                                <td class="p-3 border">{{ p.gender }}</td>
+                                <td class="p-3 border">{{ p.contact }}</td>
+                                <td class="p-3 border">{{ p.bloodGroup }}</td>
+                                <td class="p-3 border">{{ p.symptoms?.join(', ') }}</td>
+                            </tr>
+                            }
+                            }
+
+                            <!-- EMPTY -->
+                            @else {
+                            <tr>
+                                <td colspan="6" class="p-4 text-center text-gray-500">
+                                    {{ tableErrorMessage || 'No records found' }}
+                                </td>
+                            </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        }
+
+        <!-- RESULT SCREEN -->
+        @if (step === 'result') {
+        <div class="max-w-6xl mx-auto space-y-6">
+
+            <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+
+                    <!-- clipboard -->
+                    <rect x="6" y="4" width="12" height="16" rx="2" />
+                    <path d="M9 4h6v2H9z" />
+
+                    <!-- check -->
+                    <path d="M9 13l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+
+                </svg>
+                Patient Analysis Result
+            </h1>
+
+            <div *ngFor="let sp of analysisResponse?.specialists" class="bg-white p-6 rounded-2xl shadow-lg border">
+
+                <div class="flex justify-between items-center">
+
+                    <div>
+                        <h2 class="text-xl font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M12 2l3 7h7l-5 4 2 7-7-4-7 4 2-7-5-4h7z" />
+                            </svg>
+                            {{ sp.specialist }}
+                        </h2>
+
+                        <span class="inline-block mt-1 px-3 py-1 rounded-full text-sm font-bold shadow-md border"
+                            [ngClass]="{
+                            'bg-red-100 text-red-700 border-red-400': sp.severity === 'HIGH',
+                            'bg-yellow-100 text-yellow-700 border-yellow-400': sp.severity === 'MEDIUM',
+                            'bg-green-100 text-green-700 border-green-400': sp.severity === 'LOW'
+                        }">
+                            {{ sp.severity }} SEVERITY
+                        </span>
+                    </div>
+
+                    <div class="text-lg font-bold text-blue-600 flex items-center gap-2">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <!-- arc -->
+                            <path d="M4 14a8 8 0 1 1 16 0" />
+                            <!-- needle -->
+                            <line x1="12" y1="14" x2="16" y2="10" stroke-linecap="round" />
+                            <!-- center -->
+                            <circle cx="12" cy="14" r="1" fill="currentColor" />
+                        </svg>
+                        Score: {{ sp.score }}
+                    </div>
+
+                </div>
+
+                <div class="mt-5 grid gap-4">
+
+                    <div *ngFor="let doc of sp.doctors"
+                        class="flex items-center justify-between p-4 border rounded-xl bg-gray-50 hover:shadow-md transition">
+
+                        <div class="flex items-center gap-4">
+
+                            <img [src]="doc?.image" class="w-14 h-14 rounded-full border shadow" />
+
+                            <div>
+                                <p class="font-semibold flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                                        stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M12 12c2.5 0 4-2 4-4s-1.5-4-4-4-4 2-4 4 1.5 4 4 4z" />
+                                    </svg>
+                                    {{ doc.name }}
+                                </p>
+
+                                <p class="text-sm text-gray-500">
+                                    {{ doc.hospital }} • {{ doc.experience }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow flex items-center gap-2">
+
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 4v16M4 12h16" />
+                            </svg>
+
+                            Book
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button (click)="back()" class="bg-gray-800 text-white px-5 py-2 rounded-lg flex items-center gap-2">
+
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+
+                Back
+            </button>
+
+        </div>
+        }
+    </div>
+</div>
